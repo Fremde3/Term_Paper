@@ -42,6 +42,18 @@ void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_backgro
 			SDL_UpdateWindowSurface(Pointer_On->Window);
 			break;
 		}
+		case 4:
+		{
+			Pointer_On->Screen_Surface = SDL_GetWindowSurface(Pointer_On->Window);
+			Pointer_On->Image = SDL_LoadBMP("game_1.bmp");
+			SDL_BlitSurface(Pointer_On->Image, NULL, Pointer_On->Screen_Surface, &dest);
+			SDL_UpdateWindowSurface(Pointer_On->Window);
+			break;
+		}
+		case 5:
+		{
+			Load_Backgroung_Image(Pointer_On, variant_of_background_image);
+		}
 		default:
 		{
 			break;
@@ -49,7 +61,8 @@ void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_backgro
 	}
 }
 
-void clickability_of_titul_list(struct Pointer_On Pointer_On,
+//clickability_of_titul_list
+int clickability_of_titul_list(struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
 	//click on main menu
@@ -81,6 +94,31 @@ void clickability_of_titul_list(struct Pointer_On Pointer_On,
 		SDL_DestroyWindow(Pointer_On.Window);
 		SDL_Quit();
 	}
+	return number_of_picture;
+}
+
+int clickability_of_main_menu(struct Pointer_On Pointer_On,
+	int number_of_picture, SDL_Event user_click)
+{
+	//main_menu
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 27 && user_click.button.x <= 226
+		&& user_click.button.y >= 26 && user_click.button.y <= 80
+		&& number_of_picture == 3)
+	{
+		number_of_picture = 1;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	//game_1_demo
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 16  && user_click.button.x <= 576
+		&& user_click.button.y >= 206 && user_click.button.y <= 252
+		&& number_of_picture == 3)
+	{
+		number_of_picture = 4;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	return number_of_picture;
 }
 
 //making navigation
@@ -103,6 +141,7 @@ void Navigation()
 	while (!Quit_From_Programm)
 	{
 		SDL_PollEvent(&user_click);
-		clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_main_menu (Pointer_On, number_of_picture, user_click);
 	}
 }
