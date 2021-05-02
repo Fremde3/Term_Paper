@@ -58,10 +58,6 @@ void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_backgro
 			SDL_UpdateWindowSurface(Pointer_On->Window);
 			break;
 		}
-		default:
-		{
-			break;
-		}
 	}
 }
 
@@ -122,13 +118,31 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 		number_of_picture = 4;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
-	//game_1_demo
+	//game_1
 	if (user_click.button.button == SDL_BUTTON_LEFT
 		&& user_click.button.x >= 20 && user_click.button.x <= 579
 		&& user_click.button.y >= 318 && user_click.button.y <= 363
 		&& number_of_picture == 3)
 	{
 		number_of_picture = 4;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	//game_2_demo
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 17 && user_click.button.x <= 575
+		&& user_click.button.y >= 419 && user_click.button.y <= 459
+		&& number_of_picture == 3)
+	{
+		number_of_picture = 5;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	//game_2
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 20 && user_click.button.x <= 579
+		&& user_click.button.y >= 318 && user_click.button.y <= 363
+		&& number_of_picture == 3)
+	{
+		number_of_picture = 5;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	return number_of_picture;
