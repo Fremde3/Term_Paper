@@ -97,6 +97,7 @@ int clickability_of_titul_list(struct Pointer_On Pointer_On,
 	return number_of_picture;
 }
 
+//clickability_of_main_menu
 int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
@@ -148,6 +149,7 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	return number_of_picture;
 }
 
+//clickability_of_FAQ
 int clickability_of_FAQ(struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
@@ -158,6 +160,38 @@ int clickability_of_FAQ(struct Pointer_On Pointer_On,
 		&& number_of_picture == 2)
 	{
 		number_of_picture = 1;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	return number_of_picture;
+}
+
+//clickability_of_game_1
+int clickability_of_game_1(struct Pointer_On Pointer_On,
+	int number_of_picture, SDL_Event user_click)
+{
+	//main_menu
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 61 && user_click.button.x <= 185
+		&& user_click.button.y >= 25 && user_click.button.y <= 77
+		&& number_of_picture == 4)
+	{
+		number_of_picture = 3;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	return number_of_picture;
+}
+
+//clickability_of_game_2
+int clickability_of_game_2(struct Pointer_On Pointer_On,
+	int number_of_picture, SDL_Event user_click)
+{
+	//main_menu
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 61 && user_click.button.x <= 185
+		&& user_click.button.y >= 25 && user_click.button.y <= 77
+		&& number_of_picture == 5)
+	{
+		number_of_picture = 3;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	return number_of_picture;
@@ -188,5 +222,7 @@ void Navigation()
 		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_main_menu (Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_FAQ       (Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_game_1    (Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_game_2    (Pointer_On, number_of_picture, user_click);
 	}
 }
