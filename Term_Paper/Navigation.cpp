@@ -156,6 +156,8 @@ void Navigation()
 		1 - titul list
 		2 - FAQ
 		3 - main menu
+		4 - game 1
+		5 - game 2
 	*/
 	int number_of_picture = 1;
 	bool Quit_From_Programm = false;
