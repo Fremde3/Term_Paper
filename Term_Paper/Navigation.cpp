@@ -148,6 +148,21 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	return number_of_picture;
 }
 
+int clickability_of_FAQ(struct Pointer_On Pointer_On,
+	int number_of_picture, SDL_Event user_click)
+{
+	//main_menu
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 27 && user_click.button.x <= 226
+		&& user_click.button.y >= 26 && user_click.button.y <= 80
+		&& number_of_picture == 2)
+	{
+		number_of_picture = 1;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	return number_of_picture;
+}
+
 //making navigation
 void Navigation()
 {
@@ -172,5 +187,6 @@ void Navigation()
 		SDL_PollEvent(&user_click);
 		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_main_menu (Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_FAQ       (Pointer_On, number_of_picture, user_click);
 	}
 }
