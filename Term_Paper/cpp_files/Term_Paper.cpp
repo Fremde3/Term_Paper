@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include "SDL.h"
-#include "../Term_Paper/headers/Navigation.h"
+#include "Navigation.h"
 
 int main(int argc, char** argv)
 {

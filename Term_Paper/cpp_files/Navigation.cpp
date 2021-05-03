@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "SDL.h"
-#include "../Term_Paper/headers/Navigation.h"
+#include "Navigation.h"
 
 struct Pointer_On
 {
@@ -21,7 +21,7 @@ void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_backgro
 	case 1:
 	{
 		Pointer_On->Screen_Surface = SDL_GetWindowSurface(Pointer_On->Window);
-		Pointer_On->Image = SDL_LoadBMP("C:\\Users\\lizzard\\source\\repos\\Term_Paper\\Term_Paper\\bmp\\title_image.bmp");
+		Pointer_On->Image = SDL_LoadBMP("title_image.bmp");
 		SDL_BlitSurface(Pointer_On->Image, NULL, Pointer_On->Screen_Surface, &dest);
 		SDL_UpdateWindowSurface(Pointer_On->Window);
 		break;
