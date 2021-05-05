@@ -11,6 +11,12 @@ struct Pointer_On
 	SDL_Surface* Image;
 };
 
+struct Its
+{
+	bool Game1;
+	bool Game2;
+};
+
 void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_background_image)
 {
 	SDL_Rect dest;
@@ -98,7 +104,7 @@ int clickability_of_titul_list(struct Pointer_On Pointer_On,
 }
 
 //clickability_of_main_menu
-int clickability_of_main_menu(struct Pointer_On Pointer_On,
+int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
 	//main_menu
@@ -211,6 +217,8 @@ void Navigation()
 	int number_of_picture = 1;
 	bool Quit_From_Programm = false;
 	struct Pointer_On Pointer_On;
+	struct Its Its;
+	Its.Game1 = Its.Game2 = false;
 	Pointer_On.Window = SDL_CreateWindow("Curs Project",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600,
 		600, SDL_WINDOW_SHOWN);
@@ -220,7 +228,7 @@ void Navigation()
 	{
 		SDL_PollEvent(&user_click);
 		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
-		number_of_picture = clickability_of_main_menu (Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_main_menu (Its, Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_FAQ       (Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_game_1    (Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_game_2    (Pointer_On, number_of_picture, user_click);
