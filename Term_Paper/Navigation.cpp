@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "SDL.h"
+#include "Demo_Move.h"
 #include "Navigation.h"
 
 struct Pointer_On
@@ -15,6 +16,8 @@ struct Its
 {
 	bool Game1;
 	bool Game2;
+	bool Demo1;
+	bool Demo2;
 };
 
 void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_background_image)
@@ -123,6 +126,7 @@ int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 		&& number_of_picture == 3)
 	{
 		number_of_picture = 4;
+		Its.Demo1 = true;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	//game_1
@@ -132,6 +136,7 @@ int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 		&& number_of_picture == 3)
 	{
 		number_of_picture = 4;
+		Its.Game1 = true;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	//game_2_demo
@@ -141,6 +146,7 @@ int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 		&& number_of_picture == 3)
 	{
 		number_of_picture = 5;
+		Its.Demo2 = true;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	//game_2
@@ -150,6 +156,7 @@ int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 		&& number_of_picture == 3)
 	{
 		number_of_picture = 5;
+		Its.Game2 = true;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	return number_of_picture;
@@ -203,6 +210,20 @@ int clickability_of_game_2(struct Pointer_On Pointer_On,
 	return number_of_picture;
 }
 
+int clickability_save_menu(struct Pointer_On Pointer_On,
+	int number_of_picture, SDL_Event user_click)
+{
+	if (user_click.button.button == SDL_BUTTON_LEFT
+		&& user_click.button.x >= 242 && user_click.button.x <= 357
+		&& user_click.button.y >= 158 && user_click.button.y <= 212
+		&& number_of_picture == 5)
+	{
+		number_of_picture = 3;
+		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+	}
+	return number_of_picture;
+}
+
 //making navigation
 void Navigation()
 {
@@ -215,16 +236,16 @@ void Navigation()
 		5 - game 2
 	*/
 	int number_of_picture = 1;
-	bool Quit_From_Programm = false;
+	bool Demo_Or_Game_Not_Started = true;
 	struct Pointer_On Pointer_On;
 	struct Its Its;
-	Its.Game1 = Its.Game2 = false;
+	Its.Game1 = Its.Game2 = Its.Demo1 = Its.Demo2 = false;
 	Pointer_On.Window = SDL_CreateWindow("Curs Project",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600,
 		600, SDL_WINDOW_SHOWN);
 	SDL_Event user_click;
 	Load_Backgroung_Image(&Pointer_On, number_of_picture);
-	while (!Quit_From_Programm)
+	while (Demo_Or_Game_Not_Started)
 	{
 		SDL_PollEvent(&user_click);
 		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
@@ -232,5 +253,9 @@ void Navigation()
 		number_of_picture = clickability_of_FAQ       (Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_game_1    (Pointer_On, number_of_picture, user_click);
 		number_of_picture = clickability_of_game_2    (Pointer_On, number_of_picture, user_click);
+		if (Its.Demo1)
+		{
+			Demo_Move();
+		}
 	}
 }

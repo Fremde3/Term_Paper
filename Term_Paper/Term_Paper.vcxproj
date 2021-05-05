@@ -144,6 +144,7 @@
     <ClCompile Include="Term_Paper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Demo_Move.h" />
     <ClInclude Include="Navigation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
