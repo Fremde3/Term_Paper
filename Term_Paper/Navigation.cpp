@@ -219,20 +219,20 @@ int clickability_of_game_2(struct Pointer_On Pointer_On,
 	}
 	return number_of_picture;
 }
-
-int clickability_save_menu(struct Pointer_On Pointer_On,
-	int number_of_picture, SDL_Event user_click)
-{
-	/*if (user_click.button.button == SDL_BUTTON_LEFT
-		&& user_click.button.x >= 242 && user_click.button.x <= 357
-		&& user_click.button.y >= 158 && user_click.button.y <= 212
-		&& number_of_picture == 5)
-	{
-		number_of_picture = 3;
-		Load_Backgroung_Image(&Pointer_On, number_of_picture);
-	}
-	return number_of_picture;*/
-}
+//
+//int clickability_save_menu(struct Pointer_On Pointer_On,
+//	int number_of_picture, SDL_Event user_click)
+//{
+//	/*if (user_click.button.button == SDL_BUTTON_LEFT
+//		&& user_click.button.x >= 242 && user_click.button.x <= 357
+//		&& user_click.button.y >= 158 && user_click.button.y <= 212
+//		&& number_of_picture == 5)
+//	{
+//		number_of_picture = 3;
+//		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+//	}
+//	return number_of_picture;*/
+//}
 
 //making navigation
 void Navigation()
