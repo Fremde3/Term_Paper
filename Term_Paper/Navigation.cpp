@@ -18,6 +18,7 @@ struct Its
 	2 - game 1
 	3 - demo game 2
 	4 - game 2*/
+	bool Demo_Or_Game_Not_Started;
 	int type_of_game;
 };
 
@@ -68,6 +69,14 @@ void Load_Backgroung_Image(struct Pointer_On* Pointer_On, int variant_of_backgro
 			SDL_UpdateWindowSurface(Pointer_On->Window);
 			break;
 		}
+		case 6:
+		{
+			Pointer_On->Screen_Surface = SDL_GetWindowSurface(Pointer_On->Window);
+			Pointer_On->Image = SDL_LoadBMP("save_position.bmp");
+			SDL_BlitSurface(Pointer_On->Image, NULL, Pointer_On->Screen_Surface, &dest);
+			SDL_UpdateWindowSurface(Pointer_On->Window);
+			break;
+		}
 	}
 }
 
@@ -108,7 +117,7 @@ int clickability_of_titul_list(struct Pointer_On Pointer_On,
 }
 
 //clickability_of_main_menu
-int clickability_of_main_menu(struct Pointer_On Pointer_On,
+int clickability_of_main_menu(struct Its Its, struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
 	//main_menu
@@ -128,6 +137,7 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	{
 		number_of_picture = 4;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+		Its.type_of_game = 1;
 	}
 	//game_1
 	if (user_click.button.button == SDL_BUTTON_LEFT
@@ -137,6 +147,7 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	{
 		number_of_picture = 4;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+		Its.type_of_game = 2;
 	}
 	//game_2_demo
 	if (user_click.button.button == SDL_BUTTON_LEFT
@@ -146,6 +157,7 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	{
 		number_of_picture = 5;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+		Its.type_of_game = 3;
 	}
 	//game_2
 	if (user_click.button.button == SDL_BUTTON_LEFT
@@ -155,6 +167,7 @@ int clickability_of_main_menu(struct Pointer_On Pointer_On,
 	{
 		number_of_picture = 5;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
+		Its.type_of_game = 4;
 	}
 	return number_of_picture;
 }
@@ -185,7 +198,7 @@ int clickability_of_game_1(struct Pointer_On Pointer_On,
 		&& user_click.button.y >= 25 && user_click.button.y <= 77
 		&& number_of_picture == 4)
 	{
-		number_of_picture = 3;
+		number_of_picture = 6;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	return number_of_picture;
@@ -201,7 +214,7 @@ int clickability_of_game_2(struct Pointer_On Pointer_On,
 		&& user_click.button.y >= 25 && user_click.button.y <= 77
 		&& number_of_picture == 5)
 	{
-		number_of_picture = 3;
+		number_of_picture = 6;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
 	return number_of_picture;
@@ -210,7 +223,7 @@ int clickability_of_game_2(struct Pointer_On Pointer_On,
 int clickability_save_menu(struct Pointer_On Pointer_On,
 	int number_of_picture, SDL_Event user_click)
 {
-	if (user_click.button.button == SDL_BUTTON_LEFT
+	/*if (user_click.button.button == SDL_BUTTON_LEFT
 		&& user_click.button.x >= 242 && user_click.button.x <= 357
 		&& user_click.button.y >= 158 && user_click.button.y <= 212
 		&& number_of_picture == 5)
@@ -218,7 +231,7 @@ int clickability_save_menu(struct Pointer_On Pointer_On,
 		number_of_picture = 3;
 		Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	}
-	return number_of_picture;
+	return number_of_picture;*/
 }
 
 //making navigation
@@ -233,22 +246,28 @@ void Navigation()
 		5 - game 2
 	*/
 	int number_of_picture = 1;
-	bool Demo_Or_Game_Not_Started = true;
 	struct Pointer_On Pointer_On;
 	struct Its Its;
+	Its.Demo_Or_Game_Not_Started = true;
+	Its.type_of_game = NULL;
 	Pointer_On.Window = SDL_CreateWindow("Curs Project",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600,
 		600, SDL_WINDOW_SHOWN);
 	SDL_Event user_click;
 	Load_Backgroung_Image(&Pointer_On, number_of_picture);
 	//navigation cycle
-	while (Demo_Or_Game_Not_Started)
+	while (Its.Demo_Or_Game_Not_Started)
 	{
 		SDL_PollEvent(&user_click);
-		number_of_picture = clickability_of_titul_list(Pointer_On, number_of_picture, user_click);
-		number_of_picture = clickability_of_main_menu (Pointer_On, number_of_picture, user_click);
-		number_of_picture = clickability_of_FAQ       (Pointer_On, number_of_picture, user_click);
-		number_of_picture = clickability_of_game_1    (Pointer_On, number_of_picture, user_click);
-		number_of_picture = clickability_of_game_2    (Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_titul_list
+		(Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_main_menu 
+		(Its, Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_FAQ       
+		(Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_game_1    
+		(Pointer_On, number_of_picture, user_click);
+		number_of_picture = clickability_of_game_2    
+		(Pointer_On, number_of_picture, user_click);
 	}
 }
